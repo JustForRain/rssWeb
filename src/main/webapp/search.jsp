@@ -9,7 +9,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
 <head>
-<title>My JSP 'index.jsp' starting page</title>
+<title>RSS地址分析</title>
 <!-- 引入bootstrap -->
 <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
 <!-- 引入JQuery  bootstrap.js-->
@@ -24,23 +24,24 @@
 					<div class="panel-heading">
 						<div class="row">
 							<h1 class="col-md-5">RSS地址分析</h1>
+							<!-- 
 							<form class="bs-example bs-example-form col-md-6" role="form"
 								style="margin: 20px 0 10px 0;"
 								action="rssadmin/findByRssName.do" id="form1" method="post">
 								<div class="input-group">
 									<input type="text" class="form-control" placeholder="请输入RSS名字"
 										name="rssName"> <span class="input-group-addon btn"
-										onclick="search(document.getElementById('form1').rssName.value)">搜索</span>
+										onclick="searchh(document.getElementById('form1').rssName.value)">搜索</span>
 								</div>
 							</form>
+							 -->
 							<div class="btn-group">
 								<button type="button" class="btn btn-default dropdown-toggle"
 									data-toggle="dropdown">
 									我的订阅 <span class="caret"></span>
 								</button>
-								<ul class="dropdown-menu" role="menu">
-									<li><a onclick="search()">海贼王</a></li>
-									<li><a onclick="search()">小精灵</a></li>
+								<ul id="list" class="dropdown-menu" role="menu">
+								<li><a id="items" onclick="searchh(document.getElementById('items').innerText)" href="javascript:void(0);"></a></li>
 								</ul>
 							</div>
 						</div>
@@ -65,9 +66,28 @@
 
 </body>
 <script>
-	function search(date) {
-		console.log("测试输出？");
-		console.log(date);
+$(function(){
+	$.ajax({
+			type : "post",
+			"url" : "${pageContext.request.contextPath}/rssadmin/findAll.do",
+			"dataType" : "json",
+			success : function(result) {
+				$.each(result.list, function(i, items) {
+				console.log(items.id);
+					$("#list").append(
+					"<li><a id=\""+items.id+
+					"\" onclick=\"searchh(document.getElementById('"+items.id+
+					"').innerText)\" href=\"javascript:void(0);\">"+items.name+
+					"</a></li>"
+					);
+				});
+			},
+			error : function() {
+				alert("服务器错误");
+			}
+		})
+});
+	function searchh(date) {
 		var contentTableBody = document.getElementById("result");
 		var size = contentTableBody.childNodes.length;
 		for (var i = size - 1; i >= 0; i--) {
@@ -93,7 +113,6 @@
 				});
 			},
 			error : function() {
-				alert("服务器错误");
 			}
 		})
 	}
