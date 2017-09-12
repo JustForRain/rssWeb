@@ -41,7 +41,9 @@
 									我的订阅 <span class="caret"></span>
 								</button>
 								<ul id="list" class="dropdown-menu" role="menu">
-								<li><a id="items" onclick="searchh(document.getElementById('items').innerText)" href="javascript:void(0);"></a></li>
+									<li><a id="items"
+										onclick="searchh(document.getElementById('items').innerText)"
+										href="javascript:void(0);"></a></li>
 								</ul>
 							</div>
 						</div>
@@ -84,6 +86,30 @@ $(function(){
 			},
 			error : function() {
 				alert("服务器错误");
+			}
+		})
+		var contentTableBody = document.getElementById("result");
+		var size = contentTableBody.childNodes.length;
+		for (var i = size - 1; i >= 0; i--) {
+			contentTableBody.removeChild(contentTableBody.childNodes[i]);
+		}
+		$.ajax({
+			type : "post",
+			"url" : "${pageContext.request.contextPath}/rssadmin/recent.do",
+			"dataType" : "json",
+			success : function(result) {
+				$.each(result.list, function(i, items) {
+					$("#result").append(
+						"<tr>" +
+						"<td>" + items.title + "</td>" +
+						"<td>" + items.author + "</td>" +
+						"<td>" + items.pubDate + "</td>" +
+						"<td><a href='" + items.downLoadUrl + "'>下载链接</a></td>" +
+						"</tr>"
+					);
+				});
+			},
+			error : function() {
 			}
 		})
 });

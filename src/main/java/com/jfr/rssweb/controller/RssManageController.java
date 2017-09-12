@@ -58,4 +58,12 @@ public class RssManageController {
 		map.put("list",list);
 		return map;
 	}
+	@ResponseBody
+	@RequestMapping("recent")
+	public Map<String,Object> recent(){
+		Map<String,Object> map=new HashMap<String, Object>();
+		List<DownUrl> list=downUrlService.findByRecent();
+		map.put("list",list);
+		return map;
+	}
 }

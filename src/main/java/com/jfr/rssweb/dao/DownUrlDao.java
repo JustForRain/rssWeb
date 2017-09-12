@@ -11,4 +11,5 @@ public interface DownUrlDao {
 	List<DownUrl> findAll();
 	DownUrl findByOb(DownUrl insertDownUrl);
 	List<DownUrl> findByRssId(Integer rssid);
+	List<DownUrl> findByRecent();
 }

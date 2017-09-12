@@ -43,4 +43,9 @@ public class DownUrlServiceImpl implements DownUrlService {
 		return downUrlDao.findByRssId(rssid);
 	}
 
+	@Override
+	public List<DownUrl> findByRecent() {
+		return downUrlDao.findByRecent();
+	}
+
 }

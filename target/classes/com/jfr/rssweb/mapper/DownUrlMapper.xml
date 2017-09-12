@@ -32,4 +32,7 @@
 	<select id="findByRssId" parameterType="int" resultMap="allDownUrl">
 		select * from downurl where rssid=#{rssid}
 	</select>
+	<select id="findByRecent" parameterType="com.jfr.rssweb.pojo.DownUrl" resultMap="allDownUrl">
+		select * from downurl where DATE_SUB(CURDATE(), INTERVAL 7 DAY) <![CDATA[<=]]>date(pubDate);
+	</select>
 </mapper>

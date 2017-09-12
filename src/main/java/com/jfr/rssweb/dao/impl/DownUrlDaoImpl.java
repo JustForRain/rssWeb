@@ -56,4 +56,10 @@ public class DownUrlDaoImpl extends SqlSessionDaoSupport implements DownUrlDao {
 		return downUrlMapper.findByRssId(rssid);
 	}
 
+	@Override
+	public List<DownUrl> findByRecent() {
+		DownUrlMapper downUrlMapper=getSqlSession().getMapper(DownUrlMapper.class);
+		return downUrlMapper.findByRecent();
+	}
+
 }
