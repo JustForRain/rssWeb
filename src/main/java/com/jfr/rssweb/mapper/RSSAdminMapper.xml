@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jfr.rssweb.mapper.RSSAdminMapper">
+	<resultMap type="com.jfr.rssweb.pojo.RSSAdmin" id="allRss">
+		<result property="name" column="name" />
+		<result property="url" column="url" />
+		<result property="descc" column="descc" />
+	</resultMap>
+	<insert id="add" parameterType="com.jfr.rssweb.pojo.RSSAdmin">
+		insert into rssurl(name,url,descc)
+		values(#{name},#{url},#{descc});
+	</insert>
+	<delete id="delete">
+		delete from rssurl where id=#{id}
+	</delete>
+	<update id="update" parameterType="com.jfr.rssweb.pojo.RSSAdmin">
+		update rssurl
+		set name=#{name},
+		url=#{url},
+		descc=#{descc}
+		where
+		id=#{id}
+	</update>
+	<select id="findAll" parameterType="com.jfr.rssweb.pojo.RSSAdmin" resultMap="allRss">
+		select * from rssurl
+	</select>
+	<select id="findByName" parameterType="com.jfr.rssweb.pojo.RSSAdmin" resultMap="allRss">
+		select * from rssurl where name LIKE  CONCAT(CONCAT('%', #{rssName}), '%')
+	</select>
+</mapper>

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jfr.rssweb.mapper.DownUrlMapper">
+	<resultMap type="com.jfr.rssweb.pojo.DownUrl" id="allDownUrl">
+		<result property="title" column="title" />
+		<result property="pubDate" column="pubDate" />
+		<result property="author" column="author" />
+		<result property="downLoadUrl" column="downLoadUrl" />
+	</resultMap>
+	<insert id="add" parameterType="com.jfr.rssweb.pojo.DownUrl">
+		insert into downurl(rssid,title,pubDate,author,downLoadUrl)
+		values(#{rssid},#{title},#{pubDate},#{author},#{downLoadUrl});
+	</insert>
+	<delete id="delete">
+		delete from downurl where id=#{id}
+	</delete>
+	<update id="update" parameterType="com.jfr.rssweb.pojo.DownUrl">
+		update downurl
+		set title=#{title},
+		pubDate=#{pubDate},
+		author=#{author},
+		downLoadUrl=#{downLoadUrl}
+		where
+		id=#{id}
+	</update>
+	<select id="findAll" parameterType="com.jfr.rssweb.pojo.DownUrl" resultMap="allDownUrl">
+		select * from downurl
+	</select>
+	<select id="findByOb" parameterType="com.jfr.rssweb.pojo.DownUrl" resultMap="allDownUrl">
+		select * from downurl where title=#{title}
+	</select>
+	<select id="findByRssId" parameterType="int" resultMap="allDownUrl">
+		select * from downurl where rssid=#{rssid}
+	</select>
+</mapper>

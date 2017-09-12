@@ -3,6 +3,8 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.stereotype.Component;
+
 import com.jfr.rssweb.pojo.RSSItemBean;
 import com.rometools.rome.feed.synd.SyndEnclosure;
 import com.rometools.rome.feed.synd.SyndEntry;
@@ -10,6 +12,7 @@ import com.rometools.rome.feed.synd.SyndFeed;
 import com.rometools.rome.io.SyndFeedInput;
 import com.rometools.rome.io.XmlReader;
 //http://zmfkplj.iteye.com/blog/461398
+@Component
 public class RSS {
     public  List<RSSItemBean> getAllRssItemBeanList(String rssUrl){  
         try{  

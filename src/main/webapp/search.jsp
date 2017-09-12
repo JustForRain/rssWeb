@@ -1,5 +1,4 @@
 <%@ page language="java" import="java.util.*" pageEncoding="utf-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@page isELIgnored="false"%>
 <%
 	String path = request.getContextPath();
@@ -17,7 +16,6 @@
 <script src="js/jquery-3.2.1.min.js"></script>
 <script src="js/bootstrap.min.js"></script>
 </head>
-
 <body>
 	<div class="container" id="content">
 		<div class="row">
@@ -27,18 +25,28 @@
 						<div class="row">
 							<h1 class="col-md-5">RSS地址分析</h1>
 							<form class="bs-example bs-example-form col-md-6" role="form"
-								style="margin: 20px 0 10px 0;" action="search.do" id="form1"
-								method="post">
+								style="margin: 20px 0 10px 0;"
+								action="rssadmin/findByRssName.do" id="form1" method="post">
 								<div class="input-group">
-									<input type="text" class="form-control" placeholder="请输入RSS地址"
-										name="rssUrl"> <span class="input-group-addon btn"
-										onclick="search(document.getElementById('form1').rssUrl.value)">搜索</span>
+									<input type="text" class="form-control" placeholder="请输入RSS名字"
+										name="rssName"> <span class="input-group-addon btn"
+										onclick="search(document.getElementById('form1').rssName.value)">搜索</span>
 								</div>
 							</form>
-
+							<div class="btn-group">
+								<button type="button" class="btn btn-default dropdown-toggle"
+									data-toggle="dropdown">
+									我的订阅 <span class="caret"></span>
+								</button>
+								<ul class="dropdown-menu" role="menu">
+									<li><a onclick="search()">海贼王</a></li>
+									<li><a onclick="search()">小精灵</a></li>
+								</ul>
+							</div>
 						</div>
 					</div>
-					<table class="table table-bordered" style="word-break:break-all; word-wrap:break-all;">
+					<table class="table table-bordered"
+						style="word-break:break-all; word-wrap:break-all;">
 						<thead>
 							<tr>
 								<th>标题</th>
@@ -54,9 +62,12 @@
 			</div>
 		</div>
 	</div>
+
 </body>
 <script>
 	function search(date) {
+		console.log("测试输出？");
+		console.log(date);
 		var contentTableBody = document.getElementById("result");
 		var size = contentTableBody.childNodes.length;
 		for (var i = size - 1; i >= 0; i--) {
@@ -64,9 +75,9 @@
 		}
 		$.ajax({
 			type : "post",
-			"url" : "${pageContext.request.contextPath}/search.do",
+			"url" : "${pageContext.request.contextPath}/rssadmin/findByRssName.do",
 			data : {
-				rssUrl : date
+				rssName : date
 			},
 			"dataType" : "json",
 			success : function(result) {
@@ -76,7 +87,7 @@
 						"<td>" + items.title + "</td>" +
 						"<td>" + items.author + "</td>" +
 						"<td>" + items.pubDate + "</td>" +
-						"<td><a heef='" + items.downLoadUrl + "'>下载链接</a></td>" +
+						"<td><a href='" + items.downLoadUrl + "'>下载链接</a></td>" +
 						"</tr>"
 					);
 				});
