@@ -1,5 +1,6 @@
 package com.jfr.rssweb.controller;
 
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -63,6 +64,7 @@ public class RssManageController {
 	public Map<String,Object> recent(){
 		Map<String,Object> map=new HashMap<String, Object>();
 		List<DownUrl> list=downUrlService.findByRecent();
+		Collections.reverse(list);
 		map.put("list",list);
 		return map;
 	}

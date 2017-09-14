@@ -20,7 +20,7 @@ public class DownUrlServiceImpl implements DownUrlService {
 	public void add(DownUrl downUrl) {
 		//添加下载地址
 		downUrlDao.add(downUrl);
-		//发送邮件提醒 以后改进为AOP方式
+		//发送邮件提醒 以后改进为AOP 
 		String addr="邮箱地址";
 		String password="邮箱密码";
 		String smtp="smtp.qq.com";
