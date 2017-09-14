@@ -45,9 +45,9 @@ public class SendMail {
 	 * @param title
 	 * @param context
 	 */
-	public void sendMail(String from,String receiver,String title,String context){
+	public void sendMail(String fromName,String from,String receiver,String title,String context){
 		try {
-			MimeMessage message=this.createMimeMessage(from,receiver,title,context);
+			MimeMessage message=this.createMimeMessage(fromName,from,receiver,title,context);
 			Transport transport=session.getTransport();
 			transport.connect(this.account,this.passWord);
 			transport.sendMessage(message, message.getAllRecipients());
@@ -64,11 +64,11 @@ public class SendMail {
 	 * @return
 	 * @throws Exception
 	 */
-	private MimeMessage createMimeMessage(String from,String receiver,String title,String context) throws Exception {
+	private MimeMessage createMimeMessage(String fromName,String from,String receiver,String title,String context) throws Exception {
         // 1. 创建一封邮件
         MimeMessage message = new MimeMessage(this.session);
         // 2. From: 发件人（昵称有广告嫌疑，避免被邮件服务器误认为是滥发广告以至返回失败，请修改昵称）
-        message.setFrom(new InternetAddress(from, "某宝网", "UTF-8"));
+        message.setFrom(new InternetAddress(from, fromName, "UTF-8"));
         // 3. To: 收件人（可以增加多个收件人、抄送、密送）
         message.setRecipient(MimeMessage.RecipientType.TO, new InternetAddress(receiver, "XX用户", "UTF-8"));
         // 4. Subject: 邮件主题（标题有广告嫌疑，避免被邮件服务器误认为是滥发广告以至返回失败，请修改标题）

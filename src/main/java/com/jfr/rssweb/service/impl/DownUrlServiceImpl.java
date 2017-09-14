@@ -26,9 +26,10 @@ public class DownUrlServiceImpl implements DownUrlService {
 		String smtp="smtp.qq.com";
 		String port="465";
 		sendMail.init(addr, password, smtp, port, true);
+		String fromName="来自灰大郎的RSS订阅站";
 		String title="您订阅的"+downUrl.getTitle()+"已更新";
 		String context="<html><head><meta http-equiv='Content-Type' content='text/html; charset=utf-8' /><title>hello world</title></head><body><p>"+title+"</p><p><a href='"+downUrl.getDownLoadUrl()+"' target='_blank'>请点击此处下载</a> </p></body></html>";
-		sendMail.sendMail(addr, addr, title, context);
+		sendMail.sendMail(fromName,addr, addr, title, context);
 	}
 
 	@Override
